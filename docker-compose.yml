@@ -12,19 +12,18 @@ services:
     networks:
       - app-network
 
- webserver:
+ 
+  webserver:
     image: nginx:latest
     container_name: webserver
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - web-root:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
-      - dhparam:/etc/ssl/certs
     depends_on:
       - nodejs
     networks:
