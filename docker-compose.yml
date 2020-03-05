@@ -12,7 +12,7 @@ services:
     networks:
       - app-network
 
- webserver:
+  webserver:
     image: nginx:latest
     container_name: webserver
     restart: unless-stopped
