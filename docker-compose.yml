@@ -45,7 +45,6 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ./shark/views/
       o: bind
 
 networks:
