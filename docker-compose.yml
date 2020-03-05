@@ -8,21 +8,23 @@ services:
     image: nodejs
     container_name: nodejs
     restart: unless-stopped
-    
+
     networks:
       - app-network
 
-  webserver:
-    image: nginx:mainline-alpine
+ webserver:
+    image: nginx:latest
     container_name: webserver
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - web-root:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
     depends_on:
       - nodejs
     networks:
@@ -47,6 +49,12 @@ volumes:
     driver_opts:
       type: none
       device: /home/
+      o: bind
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/dhparam/
       o: bind
 
 networks:
